@@ -1,0 +1,34 @@
+<% if flash[:message] %>
+<div class="alert alert-success"><%= flash[:message] %></div>
+<%end%>
+<div class="jumbotron">
+<h3>Here is your Story</h3>
+<h3><strong><%=@story.name%></strong></h3>
+<h5>Story Description:<%=@story.description%></h5>
+<%= link_to "Edit" ,edit_story_path(@story) ,class:"btn btn-primary" %>
+<%= link_to "Create a subtask", subtasks_new_path(@story) ,class:"btn btn-primary" %>
+<br>
+<br>
+<br>
+<br>
+<% if @total!=0 %>
+<div class="progress" style="height: 32px;">
+  <div class="progress-bar" role="progressbar" style="width: <%=(@inprogress*100)/@total%>%"><%=(@inprogress*100)/@total%>%-i</div>
+  <div class="progress-bar bg-success" role="progressbar" style="width: <%=(@open*100)/@total%>%" ><%=(@open*100)/@total%>%-o</div>
+  <div class="progress-bar bg-info" role="progressbar" style="width: <%=(@rejected*100)/@total%>%" ><%=(@rejected*100)/@total%>%-r</div>
+  <div class="progress-bar bg-warning" role="progressbar" style="width: <%=(@fixed*100)/@total%>%" ><%=(@fixed*100)/@total%>%-f</div>
+  <div class="progress-bar bg-danger" role="progressbar" style="width: <%=(@verified*100)/@total%>%"><%=(@verified*100)/@total%>%-v</div>
+</div>
+<%end%>
+<br>
+<% @story.subtasks.each do |subtask|%>
+    <div class="d-flex justify-content-between">
+    <div class="p-2">
+    <h6><strong><%=subtask.name%></strong></h6>
+    <h6>Status :<%=subtask.status%></h6>
+    </div>
+    <div class="p-2"><%= link_to "See More", subtask_path(subtask) ,class:"btn btn-primary btn-sm"%></div>
+</div>
+<br>
+<%end%>
+</div>

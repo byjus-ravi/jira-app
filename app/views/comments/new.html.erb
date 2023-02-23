@@ -1,0 +1,14 @@
+<div class="jumbotron">
+<h3>Create Comment </h3>
+<%= link_to "Go Back", stories_path, class:"btn btn-primary" %>
+</div>
+<%= form_with(model: @comment,local: true) do |f|%>
+    <div class="form-group">
+    <%= f.number_field :subtask_id ,class:"form-control",type:"hidden"%>
+    </div>
+    <div class="form-group">
+    <%=f.label :description%><br/>
+    <%=f.text_area :description,class:"form-control"%>
+    </div>
+    <%=f.submit "Save" ,class:"btn btn-primary" %>
+<%end%>

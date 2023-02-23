@@ -1,0 +1,66 @@
+<h1>Here are the search results</h1>
+<% if @item=="All" %>
+<h3>Epics</h3>
+<% if @epics.size==0 %>
+<h4>Oops no Epics found </h4>
+<%else%>
+<% @epics.each do |epic| %>
+    <div class="jumbotron">
+    <p><%= epic.name%></p>
+    <p><%= epic.summary%></p>
+    <%= link_to "See More" , epic_path(epic) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<%end%>
+<h3>Stories</h3>
+<% if @stories.size==0 %>
+<h4>Oops no Stories found </h4>
+<%else%>
+<% @stories.each do |story| %>
+    <div class="jumbotron">
+    <p><%= story.name%></p>
+    <p><%= story.description%></p>
+    <%= link_to "See More" , story_path(story) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<%end%>
+<h3>Subtasks</h3>
+<% if @subtasks.size==0 %>
+<h4>Oops no Subtasks found </h4>
+<%else%>
+<% @subtasks.each do |subtask| %>
+    <div class="jumbotron">
+    <p><%= subtask.name%></p>
+    <p><%= subtask.description%></p>
+    <%= link_to "See More" , subtask_path(subtask) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<%end%>
+<% elsif @item=="Epics" %>
+<h3>Epics</h3>
+<% @epics.each do |epic| %>
+    <div class="jumbotron">
+    <p><%= epic.name%></p>
+    <p><%= epic.summary%></p>
+    <%= link_to "See More" , epic_path(epic) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<% elsif @item=="Stories" %>
+<h3>Stories</h3>
+<% @stories.each do |story| %>
+    <div class="jumbotron">
+    <p><%= story.name%></p>
+    <p><%= story.description%></p>
+    <%= link_to "See More" , story_path(story) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<% else %>
+<h3>Subtasks</h3>
+<% @subtasks.each do |subtask| %>
+    <div class="jumbotron">
+    <p><%= subtask.name%></p>
+    <p><%= subtask.description%></p>
+    <%= link_to "See More" , subtask_path(subtask) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
+<%end%>

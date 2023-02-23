@@ -1,0 +1,15 @@
+<div class="jumbotron">
+<h3>Edit the Story here</h3>
+<%= link_to "Go Back", story_path(@story) ,class:"btn btn-primary" %>
+</div>
+<%= form_with(model: @story,local: true) do |f|%>
+    <div class="form-group">
+    <%=f.label :name%><br/>
+    <%=f.text_field :name ,class:"form-control"%>
+    </div>
+    <div class="form-group">
+    <%=f.label :description%><br/>
+    <%=f.text_area :description,class:"form-control"%>
+    </div>
+    <%=f.submit "Save",class:"btn btn-primary" %>
+<%end%>

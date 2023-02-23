@@ -1,0 +1,25 @@
+<% if flash[:message] %>
+<div class="alert alert-success"><%= flash[:message] %></div>
+<%end%>
+<div class="jumbotron">
+<h3>Here is your Epic<h3>
+<h3>Epic name:<%=@epic.name%>
+<h6>Epic Summary</h6>
+<h6><%=@epic.summary%></h6>
+<%= link_to "Edit" ,edit_epic_path(@epic) ,class:"btn btn-primary"%>
+<%= link_to "Go Back", epics_path ,class:"btn btn-primary"%>
+<%= link_to "Create a story", stories_new_path(@epic) ,class:"btn btn-primary"%>
+</div>
+
+ <% @epic.stories.each do |story|%>
+    <div class="jumbotron">
+    <div class="d-flex justify-content-between">
+    <div class="p-2">
+    <h3><%=story.name%></h3>
+    </div>
+    <div class="p-2">
+<%= link_to "See More", story_path(story) ,class:"btn btn-primary"%>
+</div>
+</div>
+</div>
+<%end%>

@@ -1,0 +1,20 @@
+<% if flash[:message] %>
+<% flash[:message].each do |message| %>
+    <div class="alert alert-danger"><%= message %></div>
+<%end%>
+<% end %>
+<div class="jumbotron">
+<h3>Create the new epic </h3>
+<%= link_to "Go Back", epics_path ,class:"btn btn-primary" %>
+</div>
+<%= form_with(model: @epic,local: true) do |f|%>
+    <div class="form-group">
+    <%=f.label :name%><br/>
+    <%=f.text_field :name ,class:"form-control" %>
+    </div>
+    <div class="form-group">
+    <%=f.label :summary%><br/>
+    <%=f.text_area :summary,class:"form-control" %>
+    </div>
+    <%=f.submit "Save" ,class:"btn btn-primary" %>
+<%end%>

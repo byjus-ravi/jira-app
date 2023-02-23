@@ -1,0 +1,82 @@
+<% if flash[:error] %>
+<% flash[:error].each do |error| %>
+    <div class="alert alert-danger"><%= error %></div>
+<%end%>
+<% end %>
+<% if flash[:message] %>
+<div class="alert alert-success"><%= flash[:message] %></div>
+<%end%>
+<div class="jumbotron">
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
+      <h3>Subtask</h3>
+      <h3><strong><%=@subtask.name%></strong></h3>
+      <h6>Subtask Description</h6>
+      <h6><%=@subtask.description%></h6>
+</div>
+
+
+
+
+      <div class="col-lg-6">
+      <div class="d-flex justify-content-end">
+      <div>
+      <div class="p-2">
+<h6>Update Status</h6>
+<%= form_with(model: @subtask,local: true) do |f|%>
+    <div class="form-inline">
+    <div class="form-group">
+    <%= f.select :status, Subtask.statuses.keys,class:"form-control" %>
+   </div>
+    <%=f.submit "Save" ,class:"btn btn-primary btn-sm" %>
+    </div>
+<%end%>
+</div>
+<div class="p-2">
+<h6>Change assignee</h6>
+<%= form_with(model: @subtask,local: true) do |f|%>
+    <div class="form-inline">
+    <div class="form-group">
+    <%= f.select :assignee_id, @users,class:"form-control",selected:@subtask.assignee.email %>
+   </div>
+    <%=f.submit "Save" ,class:"btn btn-primary btn-sm" %>
+    </div>
+<%end%>
+</div>
+<br>
+      <h6>Due Date: <%=@subtask.duedate%></h6>
+      <br>
+      <h6>Engineering Team: <%=@subtask.team%></h6>
+      <br>
+      <h6>Priority: <%=@subtask.priority%></h6>
+      <br>
+      <% if @subtask.reporter %><h6>Reporter : <%=@subtask.reporter.email%></h6><%end%>
+      <br>
+      <% if @subtask.assignee %><h6>Assigned to : <%=@subtask.assignee.email%></h6><%end%>
+      <br>
+      <h6>Status:<%=@subtask.status%>
+      <br>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <br>
+  <div class="d-flex justify-content-between">
+  <div class="p-2"><h5>Comments</h5></div>
+   <div class="p-2"><%= link_to "Comment", comments_new_path(@subtask) ,class:"btn btn-primary btn-sm"%></div>
+   <div class="p-2">
+   <%= form_tag change_comment_path(id:@subtask.id,num:@x), :method => 'get' do %>
+      <%= submit_tag @a, class:"btn btn-primary btn-sm" %>
+  <% end %>
+  </div>
+   </div>
+  <% @comments.each do |comment|%>
+      <h6><strong><%=comment.user.email%></strong>: <%=comment.description%></h6>
+      <div class="d-flex justify-content-between">
+      <div class="p-2"><h6>created <%=time_ago_in_words(comment.created_at)%> ago </h6></div>
+      <% if user_signed_in? && current_user==comment.user %><div class="p-2"><%= link_to "Delete" ,comment_path(comment) , data: { turbo_method: :delete } ,class:"btn btn-danger btn-sm"%></h6></div><%end%>
+      </div>
+  <%end%>
+  </div>

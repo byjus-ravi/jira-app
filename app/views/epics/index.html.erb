@@ -1,0 +1,15 @@
+<div class="jumbotron">
+<div class="d-flex justify-content-between">
+<div class="p-2">
+<h1>All Epics</h1>
+</div>
+<div class="p-2"><%= link_to "Create new Epic" , new_epic_path ,class:"btn btn-primary"%></div>
+</div>
+</div>
+<% @epics.each do |epic| %>
+    <div class="jumbotron">
+    <p><%= epic.name%></p>
+    <p><%= epic.summary%></p>
+    <%= link_to "See More" , epic_path(epic) ,class:"btn btn-primary"%>
+    </div>
+<%end%>
